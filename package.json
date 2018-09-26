@@ -1,0 +1,28 @@
+{
+  "name": "jwt-auth",
+  "version": "1.0.0",
+  "description": "Node JWT Authentication",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anmolsrivastava/node-jwt-auth.git"
+  },
+  "author": "Anmol Srivastava",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anmolsrivastava/node-jwt-auth/issues"
+  },
+  "homepage": "https://github.com/anmolsrivastava/node-jwt-auth#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.1",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "joi": "^13.6.0",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.2.17"
+  }
+}
