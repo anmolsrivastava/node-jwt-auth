@@ -18,14 +18,14 @@ router.get('/user/:id', checkAdmin, user.getUserById)
 function checkAdmin(req, res, next) {
     if (req.user.role === 'admin') return next()
     else res.status(403).send({
-        message: 'User does have permission'
+        message: 'User does not have permission'
     })
 }
 
 function checkEditor(req, res, next) {
     if (req.user.role === 'editor') return next()
     else res.status(403).send({
-        message: 'User does have permission'
+        message: 'User does not have permission'
     })
 }
 
