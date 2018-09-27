@@ -16,18 +16,35 @@ module.exports = {
                     message: validationErrors.details[0].message
                 })
             } else {
-                let hash = await bcrypt.hash(req.body.password, 10)
-                const user = new User({
-                    _id: new mongoose.Types.ObjectId(),
-                    username: req.body.username,
-                    email: req.body.email,
-                    password: hash,
-                    role: req.body.role
+                let findUser = await User.findOne({
+                    username: {
+                        "$regex": "^" + req.body.username + "\\b", "$options": "i"
+                    }
                 })
-                await user.save()
-                res.status(200).json({
-                    success: 'New user has been created'
-                });
+                let findEmail = await User.findOne({
+                    email: {
+                        "$regex": "^" + req.body.email + "\\b", "$options": "i"
+                    }
+                })
+                if (findUser || findEmail) {
+                    res.status(400).send({
+                        message: 'User already exists'
+                    })
+                } else {
+                    let hash = await bcrypt.hash(req.body.password, 10)
+                    const user = new User({
+                        _id: new mongoose.Types.ObjectId(),
+                        username: req.body.username,
+                        email: req.body.email,
+                        password: hash,
+                        role: req.body.role
+                    })
+                    await user.save()
+                    res.status(200).json({
+                        success: 'New user has been created'
+                    });
+                }
+
             }
         }
         catch (err) {
@@ -50,7 +67,7 @@ module.exports = {
                     },
                         'secret',
                         {
-                            expiresIn: '24h'
+                            expiresIn: '1h'
                         });
                     return res.status(200).send({
                         status: true,
